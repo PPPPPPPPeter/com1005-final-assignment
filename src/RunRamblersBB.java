@@ -19,7 +19,21 @@ public class RunRamblersBB {
 			num--;
 		    }
 		}
-		
+		for (Coords c :goals) {
+		    System.out.println("Goal : (" + c.gety() + "," + c.getx() + ")");
+		    RamblersSearch searcher = new RamblersSearch(map1, c);
+		    SearchState initState = (SearchState) new RamblersState(new Coords(0, 0), 0, 0);
+		    float res = searcher.runSearchE(initState, "branchAndBound");
+		    System.out.println("Efficiency " + res);
+		}
+	    }
+		static boolean inGoals(Coords c, ArrayList<Coords> goals) {
+		for (Coords item : goals) {
+		    if (c.getx() == item.getx() && c.gety() == item.gety()) {
+			return true;
+		    }
+		}
+		return false;
 	}
 
 }
