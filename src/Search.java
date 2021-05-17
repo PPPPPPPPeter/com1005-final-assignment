@@ -57,6 +57,32 @@ public abstract class Search {
     return "Search Fails"; // out of the while loop - failure
 
   }
+  
+  public  float runSearchE (SearchState initState, String strat) {
+
+    initNode = new SearchNode(initState,0,0); // create initial node
+    initNode.setGlobalCost(0); //change from search2
+
+    open = new ArrayList<SearchNode>(); // initial open, closed
+    open.add(initNode);
+    closed = new ArrayList<SearchNode>();
+
+    int numIteration = 1;
+
+    while (!open.isEmpty()) {
+
+      selectNode(strat); // change from search1 -selectNode selects next node given strategy,
+
+      if (currentNode.goalPredicate(this)) return reportSuccessE();  //success
+      //change from search1 - call reportSuccess
+
+      expand(); // go again
+      closed.add(currentNode); // put current node on closed
+      numIteration = numIteration + 1;
+    }
+
+    return 0;  // out of the while loop - failure
+  }
 
   // expand current node
   private void expand() {
