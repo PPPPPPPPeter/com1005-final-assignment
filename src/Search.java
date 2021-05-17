@@ -111,20 +111,29 @@ public abstract class Search {
   private void vetSuccessors() {
     ArrayList<SearchNode> vslis = new ArrayList<SearchNode>();
 
-    for (SearchNode snode : successorNodes) {
-      if (!(onClosed(snode))) { // if on closed, ignore
-        if (!(onOpen(snode))) {
-          vslis.add(snode); // if not on open, add it
-        } else { // DPcheck - node found on open is in old_node
-          if (snode.getGlobalCost() <= old_node.getGlobalCost()) { // compare global costs
-            old_node.setParent(snode.getParent()); // better route, modify node
-            old_node.setGlobalCost(snode.getGlobalCost());
-            old_node.setLocalCost(snode.getLocalCost());
-          }
+    for (SearchNode snode: successorNodes){
+      if (onOpen(snode)) { //on open - usual DP check
+        if (snode.getGlobalCost()<old_node.getGlobalCost()) {
+          old_node.setParent(snode.getParent()); //better route, modify node
+          old_node.setGlobalCost(snode.getGlobalCost());
+          old_node.setLocalCost(snode.getLocalCost());
+          old_node.setestTotalCost(snode.getestTotalCost());
         }
       }
+      else {
+        if (onClosed(snode)) { //A* - on closed - DP check again
+          if (snode.getGlobalCost()<old_node.getGlobalCost()) {
+            old_node.setParent(snode.getParent()); //better route, modify node
+            old_node.setGlobalCost(snode.getGlobalCost());
+            old_node.setLocalCost(snode.getLocalCost());
+            old_node.setestTotalCost(snode.getestTotalCost());
+            open.add(old_node); //A* - add the node back to open
+            closed.remove(old_node); //A* - & remove it from closed
+          }
+        }
+        else vslis.add(snode); //not seen before
+      }
     }
-
     successorNodes = vslis;
   }
 
@@ -210,5 +219,18 @@ public abstract class Search {
     System.out.println("Efficiency " + ((float) plen / (closed.size() + 1)));
     System.out.println("Solution Path\n");
     return buf.toString();
+  }
+  
+  private float reportSuccessE(){
+
+    SearchNode n = currentNode;
+    int plen=1;
+
+    while (n.getParent() != null){
+      n=n.getParent();
+      plen=plen+1;
+    }
+
+    return (float) plen/(closed.size()+1);
   }
 }
