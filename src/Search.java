@@ -197,6 +197,21 @@ public abstract class Search {
     currentNode = minCostNode;
     open.remove(minCostNode);
   }
+  
+  private void AStar(){
+
+    Iterator i = open.iterator();
+    SearchNode minCostNode=(SearchNode) i.next();
+    for (;i.hasNext();){
+      SearchNode n=(SearchNode) i.next();
+      if (n.getestTotalCost()<minCostNode.getestTotalCost()){
+        minCostNode=n;};
+    }
+
+    currentNode=minCostNode;
+    open.remove(minCostNode);
+  }
+
 
   // change from search1
   // report success - reconstruct path, convert to string & return
