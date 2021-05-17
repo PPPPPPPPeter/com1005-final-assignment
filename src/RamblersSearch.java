@@ -2,27 +2,23 @@
 public class RamblersSearch extends Search{
 	
 	
-	private TerrainMap ramblersMap;
-	private int y;
-	private int x;
-	
+	private TerrainMap map;
+	private Coords goal;
+    	public static final String heuristicsMethod = "Other";
 	
 	public TerrainMap getTerrainMap() {
-		return this.ramblersMap;
+		return this.map;
 	}
 	
-	public int getYforsearch() {
-		return this.y;
-	}
-	public int getXforsearch() {
-		return this.x;
+	public Coords getYforsearch() {
+		return this.goal;
 	}
 	
 	
-	public RamblersSearch(TerrainMap map, int y, int x) {
-		this.ramblersMap = map;
-		this.y = y;
-		this.x = x;
+	
+	public RamblersSearch(TerrainMap m, Coords g) {
+		map = m;
+		goal = g;
 	}
 	
 	
