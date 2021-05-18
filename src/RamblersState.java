@@ -71,6 +71,10 @@ public class RamblersState extends SearchState {
     public String toString() {
         return "Map State: (" + coords.gety() + ", " + coords.getx() + ")";
     }
+     /*
+     * get different estRemCost of Astar.
+     * 
+     */
 
     public int getRC(int x, int y, int gx, int gy, int[][] tmap) {
         int rc = 0;
