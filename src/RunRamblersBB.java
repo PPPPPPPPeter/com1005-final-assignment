@@ -1,3 +1,9 @@
+ /*
+         * using random to create 11goals for search and store them in an Arraylist.
+         */
+import java.util.ArrayList;
+
+import java.util.Random;
 
 public class RunRamblersBB {
 
@@ -19,6 +25,8 @@ public class RunRamblersBB {
 			num--;
 		    }
 		}
+		   //using the goals stored in the collection for searching and invoke .runSearchE to calculate the 
+        //efficiency
 		for (Coords c :goals) {
 		    System.out.println("Goal : (" + c.gety() + "," + c.getx() + ")");
 		    RamblersSearch searcher = new RamblersSearch(map1, c);
